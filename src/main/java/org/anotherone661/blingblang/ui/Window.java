@@ -16,6 +16,7 @@ public class Window extends JFrame{
     private JPanel panel;
     private JLabel bgLabel;
     private ImageIcon bg;
+    private Timer timer;
     Window(){
         this(Settings.TITLE, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT, Settings.WINDOW_RESIZABLE, Settings.ALWAYS_ON_TOP, Settings.ICON_PATH);
     }
@@ -40,6 +41,8 @@ public class Window extends JFrame{
                 Window.this.setState(JFrame.NORMAL);
             }
         });
+
+        startMoving();
     }
 
     private void init() {
@@ -63,4 +66,12 @@ public class Window extends JFrame{
         setIconImage(icon);
     }
 
+    private void startMoving() {
+        timer = new Timer(1000, e -> {
+            int x = (int) (Math.random() * (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()));
+            int y = (int) (Math.random() * (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()));
+            setLocation(x, y);
+        });
+        timer.start();
+    }
 }
