@@ -5,6 +5,8 @@ import org.anotherone661.blingblang.ui.Launcher;
 public class Main {
     public static void main(String[] args) {
         Launcher launcher = new Launcher();
-        launcher.run();
+        while(true){
+            launcher.run();
+        }
     }
 }
