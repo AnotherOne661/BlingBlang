@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import org.anotherone661.blingblang.classes.Mp3Player;
 import org.anotherone661.blingblang.classes.URL;
 
 
@@ -17,6 +18,7 @@ public class Window extends JFrame{
     private JLabel bgLabel;
     private ImageIcon bg;
     private Timer timer;
+    private Mp3Player mp3Player;
     Window(){
         this(Settings.TITLE, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT, Settings.WINDOW_RESIZABLE, Settings.ALWAYS_ON_TOP, Settings.ICON_PATH);
     }
@@ -35,12 +37,17 @@ public class Window extends JFrame{
         loadIcon(iconPath);
         setLocationRelativeTo(null);
 
+        Mp3Player mp3Player = new Mp3Player("/blingblangaudio.wav", true);
+        mp3Player.play();
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowIconified(WindowEvent e) {
                 Window.this.setState(JFrame.NORMAL);
             }
-        });
+        }
+
+        );
 
         startMoving();
     }
@@ -67,7 +74,7 @@ public class Window extends JFrame{
     }
 
     private void startMoving() {
-        timer = new Timer(1000, e -> {
+        timer = new Timer(500, e -> {
             int x = (int) (Math.random() * (Toolkit.getDefaultToolkit().getScreenSize().getWidth() - getWidth()));
             int y = (int) (Math.random() * (Toolkit.getDefaultToolkit().getScreenSize().getHeight() - getHeight()));
             setLocation(x, y);
